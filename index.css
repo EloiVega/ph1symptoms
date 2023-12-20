@@ -1,14 +1,16 @@
-
 body{
 	margin: 0;
     position: relative;
+    width: 100vw;
     height: 100%;
+
+    overflow-x: hidden;
 }
 
 .filler {
     height: 100vh;
     width: 100vw;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,13 +31,13 @@ body{
     position: relative;
   }
 
-  [data-scene]:first-child {
-    /* background: linear-gradient(to bottom, rgb(168, 192, 255), rgb(63, 43, 150)); */
+  /* [data-scene]:first-child {
+    background: linear-gradient(to bottom, rgb(168, 192, 255), rgb(63, 43, 150));
   }
 
   [data-scene]:last-child {
-    /* margin-bottom: 50vh; */
-  }
+    margin-bottom: 50vh;
+  } */
 
 .app{
     width: 100vw;
@@ -52,4 +54,75 @@ body{
 #set1shape2{
     top: 7%;
     left: 50px;
+}
+
+.anatomy_pin_modal{
+    margin: 100px auto;
+    border: 3px solid red;
+
+    width: 70vw;
+    max-width: 700px;
+    height: 70vh;
+    background-color: white;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 5px 1px black,0px 0px 10px 1px white,0px 0px 10px 2px skyblue; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    overflow: hidden;
+    /* position:fixed; */
+    /* top: 60vh;
+    left: 50vw; */
+
+    /* transform: translate(-50%, -50%); */
+    z-index: 10;
+}
+
+.anatomy_model{
+    width: 40%;
+    max-width: 400px;
+    height: 80%;
+    
+    /* background-color:peru; */
+}
+
+.anatomy_model>img{
+    width: 100%;
+    height: 100%;
+}
+
+.label_list{
+    width: 90%;
+    height: 10%;
+
+    /* background: teal; */
+    overflow: scroll;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    
+    border-top: 1px solid black;
+}
+
+.label_list>.label{
+    margin-right: 20px;
+    border-top: 1px solid black;
+    padding-top: 9px;
+}
+
+.label_list>.marked_label{
+    border-top: 10px solid red;
+    padding-top: 0;
+}
+
+.label_list::-webkit-scrollbar {
+    display: none;
+}
+
+.red{
+    background-color: red;
+    border: 1px solid black;
 }
