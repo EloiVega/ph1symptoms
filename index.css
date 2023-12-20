@@ -1,3 +1,4 @@
+
 body{
 	margin: 0;
     position: relative;
@@ -8,31 +9,47 @@ body{
     height: 100vh;
     width: 100vw;
     border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 15%;
+}
+
+[data-scene] {
+    max-width: 800px;
+    margin: 10vh auto;
+    font-family: sans-serif;
+    font-size: 100px;
+    color: #fff;
+    text-align: center;
+    /* background: linear-gradient(to top, rgb(252, 92, 125), rgb(106, 130, 251)); */
+    border-radius: 5px;
+
+    position: relative;
+  }
+
+  [data-scene]:first-child {
+    /* background: linear-gradient(to bottom, rgb(168, 192, 255), rgb(63, 43, 150)); */
+  }
+
+  [data-scene]:last-child {
+    /* margin-bottom: 50vh; */
+  }
+
+.app{
+    width: 100vw;
 }
 
 .background_triangle{
     position: absolute;
 }
 
-.scrollblock{
-    
+#set1shape1{
+    top: 5%;
+    left: 50px;
 }
-
-#largeTriangle1{
-    right: 0;
-    top: 400px;
-}
-
-#mediumTriangle1{
-    right: 300px;
-    top: 400px;
-}
-
-#smallTriangle1{
-    right: 0;
-    top: 800px;
-}
-#smallTriangle2{
-    right: 200px;
-    top: 700px;
+#set1shape2{
+    top: 7%;
+    left: 50px;
 }

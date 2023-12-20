@@ -1,37 +1,17 @@
-$(document).ready(function() {
-    var scrollorama = $.scrollorama({ blocks:'.scrollblock' });
-
-    // scrollorama.animate('#largeTriangle1>img', {
-    //     offset: 100,
-    //     duration: 500,
-    //     property: 'tansform',
-    //     easing: 'easeInOutQuint',
-    //     start: {translateY: '0%'},
-    //     end: {translateY: '-300%'}
-    // })
-    // scrollorama.animate('#mediumTriangle1>img', {
-    //     offset: 100,
-    //     duration: 500,
-    //     property: 'tansform',
-    //     easing: 'easeInOutQuint',
-    //     start: {translateY: '-100%'},
-    //     end: {translateY: '300%'}
-    // })
-    // scrollorama.animate('#smallTriangle1>img', {
-    //     offset: 100,
-    //     duration: 500,
-    //     property: 'tansform',
-    //     easing: 'easeInOutQuint',
-    //     start: {translateY: '0%'},
-    //     end: {translateY: '-5000%'}
-    // })
-    // scrollorama.animate('#smallTriangle2>img', {
-    //     offset: 100,
-    //     duration: 500,
-    //     property: 'tansform',
-    //     easing: 'easeInOutQuint',
-    //     start: {translateY: '0%'},
-    //     end: {translateY: '-100%'}
-    // })
-
+$(document).ready(function() {		
+    const config = {
+        view: document.querySelector('.app'),
+        preload: true,
+        native: false,
+        change(state) {
+        //   document.documentElement.style.backgroundColor = `hsl(${(state.current / state.bounding) * 360}, 100%, 95%)`;
+        },
+        scenes: {
+          
+        },
+      };
+      
+      const r = window.rolly(config);
+      r.init();
+      
 });
