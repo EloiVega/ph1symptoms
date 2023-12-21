@@ -56,7 +56,64 @@ body{
     left: 50px;
 }
 
-.anatomy_pin_modal{
+.anatomy_pin{
+    margin: 100px auto;
+    border: 3px solid red;
+
+    width: 75vw;
+    height: 80vh;
+    background-color: white;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 5px 1px black,0px 0px 10px 1px white,0px 0px 10px 2px skyblue; */
+
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+
+    overflow: hidden;
+    /* position:fixed; */
+    /* top: 60vh;
+    left: 50vw; */
+
+    /* transform: translate(-50%, -50%); */
+    z-index: 10;
+}
+
+.anatomy_pin>.anatomy_model{
+    width: 30%;
+    height: 100%;
+    
+    /* background-color:peru; */
+}
+
+.anatomy_pin>.anatomy_model>img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.anatomy_pin>.label_list{
+    width: 50%;
+    height: 40%;
+
+    /* background: teal; */
+    white-space: nowrap;
+    /* overflow: scroll;
+    overflow-y: hidden; */
+    
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    grid-template-rows: auto;
+}
+.anatomy_pin>.label_list>.label{
+
+}
+.anatomy_pin>.label_list>.marked_label{
+
+}
+
+.anatomy_pin_mobile{
     margin: 100px auto;
     border: 3px solid red;
 
@@ -81,7 +138,7 @@ body{
     z-index: 10;
 }
 
-.anatomy_model{
+.anatomy_pin_mobile>.anatomy_model{
     width: 40%;
     max-width: 400px;
     height: 80%;
@@ -89,16 +146,17 @@ body{
     /* background-color:peru; */
 }
 
-.anatomy_model>img{
+.anatomy_pin_mobile>.anatomy_model>img{
     width: 100%;
     height: 100%;
 }
 
-.label_list{
+.anatomy_pin_mobile>.label_list{
     width: 90%;
     height: 10%;
 
     /* background: teal; */
+    white-space: nowrap;
     overflow: scroll;
     overflow-y: hidden;
     display: flex;
@@ -107,13 +165,13 @@ body{
     border-top: 1px solid black;
 }
 
-.label_list>.label{
+.anatomy_pin_mobile>.label_list>.label{
     margin-right: 20px;
     border-top: 1px solid black;
     padding-top: 9px;
 }
 
-.label_list>.marked_label{
+.anatomy_pin_mobile>.label_list>.marked_label{
     border-top: 10px solid red;
     padding-top: 0;
 }
@@ -123,6 +181,9 @@ body{
 }
 
 .red{
-    background-color: red;
+    /* background-color: red; */
     border: 1px solid black;
+}
+
+@media (max-width: 600px) {
 }
