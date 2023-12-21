@@ -1,0 +1,65 @@
+
+.anatomy_pin_mobile{
+    margin: 100px auto;
+    border: 3px solid red;
+
+    width: 70vw;
+    max-width: 700px;
+    height: 70vh;
+    background-color: white;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 5px 1px black,0px 0px 10px 1px white,0px 0px 10px 2px skyblue; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    overflow: hidden;
+    /* position:fixed; */
+    /* top: 60vh;
+    left: 50vw; */
+
+    /* transform: translate(-50%, -50%); */
+    z-index: 10;
+}
+
+.anatomy_pin_mobile>.anatomy_model{
+    width: 40%;
+    max-width: 400px;
+    height: 80%;
+    position: relative;
+    /* background-color:peru; */
+}
+
+.anatomy_pin_mobile>.anatomy_model>img{
+    width: 100%;
+    height: 100%;
+}
+
+.anatomy_pin_mobile>.label_list{
+    width: 90%;
+    height: 10%;
+
+    /* background: teal; */
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    
+    border-top: 1px solid black;
+}
+
+.anatomy_pin_mobile>.label_list>.label{
+    padding-left: 0px;
+    padding-top: 4px;
+    font-size: 12px;
+}
+
+.anatomy_pin_mobile>.label_list>.marked_label{
+    height: 100%;
+    border-top: 5px solid var(--red);
+    padding: 0px;
+}

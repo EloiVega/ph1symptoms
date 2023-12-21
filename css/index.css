@@ -20,7 +20,7 @@ body{
     justify-content: center;
     align-items: center;
 
-    font-size: 15%;
+    font-size: 50px;
 }
 
 [data-scene] {
@@ -50,6 +50,7 @@ body{
 
 .background_triangle{
     position: absolute;
+    z-index: -1;
 }
 
 #set1shape1{
@@ -84,13 +85,11 @@ body{
     height: 100%;
 
     position: relative;
-    
-    /* background-color:peru; */
 }
 
 .anatomy_pin>.anatomy_model>img{
     width: 100%;
-    height: 100%;
+    height: 95%;
 }
 
 .anatomy_model .mark{
@@ -106,12 +105,16 @@ body{
     border-radius: 50%;
 }
 .anatomy_model .marked{
-    top: 0%;
-    left: 10%;
+    transform: translate(-10%, -10%);
     width: 50px;
     height: 50px;
     background-color: var(--red);
     position: absolute;
+    
+    z-index: 8 !important;
+
+    scale: 1.1;
+    transition: scale 0.2s ease-in-out;
 }
 
 .anatomy_model .marked::before{
@@ -124,9 +127,9 @@ body{
     position: absolute;
     border-radius: 50%;
     background-color: white;
+    
 
-    animation: pulsate 0.8s cubic-bezier(1,-0.01,.78,.47) infinite alternate;
-    animation-delay: 1s;
+    animation: pulsate 0.5s linear infinite alternate;
 }
 .anatomy_model .marked::after{
     content: '';
@@ -174,63 +177,6 @@ body{
     color: var(--red);
 }
 
-.anatomy_pin_mobile{
-    margin: 100px auto;
-    border: 3px solid red;
-
-    width: 70vw;
-    max-width: 700px;
-    height: 70vh;
-    background-color: white;
-    border-radius: 10px;
-    /* box-shadow: 0px 0px 5px 1px black,0px 0px 10px 1px white,0px 0px 10px 2px skyblue; */
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-
-    overflow: hidden;
-    /* position:fixed; */
-    /* top: 60vh;
-    left: 50vw; */
-
-    /* transform: translate(-50%, -50%); */
-    z-index: 10;
-}
-
-.anatomy_pin_mobile>.anatomy_model{
-    width: 40%;
-    max-width: 400px;
-    height: 80%;
-    
-    /* background-color:peru; */
-}
-
-.anatomy_pin_mobile>.anatomy_model>img{
-    width: 100%;
-    height: 100%;
-}
-
-.anatomy_pin_mobile>.label_list{
-    width: 90%;
-    height: 10%;
-
-    /* background: teal; */
-    white-space: nowrap;
-    overflow: scroll;
-    overflow-y: hidden;
-    display: flex;
-    align-items: center;
-    
-    border-top: 1px solid black;
-}
-
-.anatomy_pin_mobile>.label_list>.marked_label{
-    border-top: 10px solid red;
-    padding: 0px;
-}
-
 .label_list::-webkit-scrollbar {
     display: none;
 }
@@ -241,17 +187,25 @@ body{
     border: 1px solid black;
 }
 
+@media (max-width: 768px){
+    .background_triangle{
+        display: none;
+    }
+}
+
 @keyframes pulsate{
     0%{
-        width: 50px;
+        /* width: 50px;
         height: 50px;
         top: 0;
-        left: 0;
+        left: 0; */
+        outline: 2px solid white;
     }
     100%{
-        width: 40px;
-        height: 40px;
-        top: 5px;
-        left: 5px;
+        /* width: 42px;
+        height: 42px;
+        top: 3.7px;
+        left: 3.7px; */
+        outline: 5px solid white;
     }
 }

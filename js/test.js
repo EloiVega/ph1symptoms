@@ -1,63 +1,64 @@
+// UPDATE POSITIONS
 const labels = [
     {
         label: "skin",
-        xPosition: 79,
-        yPosition: 42,
-    },
-    {
-        label: "bones",
-        xPosition: 43,
-        yPosition: 85,
-    },
-    {
-        label: "joints",
-        xPosition: 55,
-        yPosition: 72,
-    },
-    {
-        label: "perephiral nerves",
-        xPosition: 42,
-        yPosition: 40,
-    },
-    {
-        label: "teeth",
-        xPosition: 48.5,
-        yPosition: 17,
-    },
-    {
-        label: "heart",
-        xPosition: 55,
-        yPosition: 30,
+        xPosition: 85.5,
+        yPosition: 44,
     },
     {
         label: "blood vessels",
-        xPosition: 20,
-        yPosition: 40,
+        xPosition: 13.5,
+        yPosition: 30,
+    },
+    {
+        label: "bones",
+        xPosition: 32,
+        yPosition: 60.3,
     },
     {
         label: "bone marrow",
-        xPosition: 28,
-        yPosition: 32,
+        xPosition: 30.5,
+        yPosition: 53.5,
+    },
+    {
+        label: "joints",
+        xPosition: 33,
+        yPosition: 67,
     },
     {
         label: "muscles",
-        xPosition: 42,
-        yPosition: 28.5,
+        xPosition: 63,
+        yPosition: 59,
+    },
+    {
+        label: "perephiral nerves",
+        xPosition: 57,
+        yPosition: 89,
     },
     {
         label: "retina",
-        xPosition: 46,
-        yPosition: 11.5,
+        xPosition: 49,
+        yPosition: 3.4,
+    },
+    {
+        label: "teeth",
+        xPosition: 44,
+        yPosition: 8,
     },
     {
         label: "thyroid",
-        xPosition: 48,
-        yPosition: 23,
+        xPosition: 44,
+        yPosition: 13,
+    },
+    {
+        label: "heart",
+        xPosition: 52,
+        yPosition: 20.8,
     },
     {
         label: "kidneys",
-        xPosition: 55,
-        yPosition: 40,
+        xPosition: 56.8,
+        yPosition: 32.8,
     },
   ]
 
@@ -66,7 +67,6 @@ $(document).ready(function() {
 
     const anatomy_pin = document.querySelector("#anatomy_pin");
     const anatomy_label_list = document.querySelector("#anatomy_label_list");
-    const anatomy_labels = anatomy_label_list.children;
     let anatomyMarkedPos = 0; //Initiates Marked Labels and Markers
     
     let isOnSmallWindow = false; //Controls functionalities to only be used when needed
@@ -79,15 +79,16 @@ $(document).ready(function() {
 
     const markTopic = (labelPosition) => {
         console.log("isClicking") //Debugging
-        // - COMPLETE THIS FUNCTION -
         let id = removeWhiteSpaces(labels[anatomyMarkedPos].label); //marked positions' id
         
         //Unmark the previous marked position
         $(`#${id}_label`).removeClass('marked_label');
+        $(`#${id}`).removeClass('marked');
         
         id = removeWhiteSpaces(labels[labelPosition].label); //new positions' id
         //Mark the new position
         $(`#${id}_label`).addClass('marked_label');
+        $(`#${id}`).addClass('marked');
 
         //assign the new marked pos to anatomyMarkedPos
         anatomyMarkedPos = labelPosition;
@@ -183,13 +184,36 @@ $(document).ready(function() {
     ///////////////////////////////////////////////////////////////////////////////////////
 
     /* --------- RENDERING --------- */
+    
+    //Rendering the anatomy dummy figure
+    $("#anatomy_pin").append(`
+        <div id="anatomy_model" class="anatomy_model">
+            <img src="./ui/images/dummy.png" alt="a figure of the human body anatomy with circle on top to indicate parts' positions">
+        </div>
+    `)
+    
+    labels.forEach((topic, currentIndex) => {
+        //First we construct the circles elements
+        const markerId = removeWhiteSpaces(topic.label);
+        $("#anatomy_model").append(`
+            <span id = "${markerId}" class="mark ${currentIndex == anatomyMarkedPos? "marked": ""}"></span>
+        `);
+        //Then we edit their HTML CSS to position them as we wish
+        $(`#${markerId}`).css({
+            top: `${topic.yPosition}%`,
+            left: `${topic.xPosition}%`
+        })
+        //Then make it marked when clicked
+        $(`#${markerId}`).click(() => {markTopic(currentIndex)});
+    });
 
     //Rendering the labels' list
+    $("#anatomy_pin").append(`<div id = "anatomy_label_list" class="label_list"></div>`);
     labels.forEach((label, currentIndex) => {
         const labelId = removeWhiteSpaces(label.label);
         $('#anatomy_label_list').append(`
             <div id = "${labelId}_label" class = "label ${currentIndex == anatomyMarkedPos? "marked_label": ""}">
-                <h2>${label.label}</h2>
+                <h2>${capitalize(label.label)}</h2>
             </div>
         `)
 
