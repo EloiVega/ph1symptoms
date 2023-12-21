@@ -1,11 +1,30 @@
 $(document).ready(function() {	
     gsap.registerPlugin(ScrollTrigger);
 
+
+    /* --------- GLOBAL VARIABLES & INITIALLIZATION FUNCTIONS --------- */
+
     const anatomy_pin = document.querySelector("#anatomy_pin");
     let anatomyMarkedPos = 0; //Initiates Marked Labels and Markers
+    let anatomyScrollStart = 0; //Initiallized bellow (quick search: if(anatomyScrollStart == 0)) to jump to the initiallization
     let isAnatomyPinned = false; //Controls functionalities of the label_list scroll when the anatomy section is pinned
     let isOnSmallWindow = false; //Controls functionalities to only be used when needed
+    let interval = false;
+    let scrollEventUp = false;
+    let scrollEventDown = false;
     const SMALL_WINDOW_MAX_WIDTH = 768;
+
+    const getAnatomyScrollDistance = (id) => {
+        const tempLabel = $(`#${id}_label`);
+            const tempContainer = $(`#anatomy_label_list`);
+            const OFFSET_FACTOR = 30;
+            const scrollDistance = 
+                        tempLabel[0].offsetLeft -               // if x + y = z
+                        tempContainer[0].offsetLeft -           // then z - y = x
+                        (tempContainer[0].offsetWidth/2) +
+                        OFFSET_FACTOR;  // this is a factor of centering the scrolling to the middle of the screen
+        return scrollDistance;
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -13,6 +32,13 @@ $(document).ready(function() {
     /* --------- LOGISTIC ACTIONS & EVENTS --------- */
 
     const markTopic = (labelPosition) => {
+        labelPosition = Math.min(labelPosition, labels.length-1);
+        labelPosition = Math.max(labelPosition, 0);
+        if(labelPosition== labels.length-1 || labelPosition <= 0) {
+            clearInterval(interval); 
+            interval = false;
+        }
+
         let id = removeWhiteSpaces(labels[anatomyMarkedPos].label); //marked positions' id
         
         //Unmark the previous marked position
@@ -24,15 +50,12 @@ $(document).ready(function() {
         $(`#${id}_label`).addClass('marked_label');
         $(`#${id}`).addClass('marked');
 
+        if(anatomyScrollStart == 0){
+            anatomyScrollStart = getAnatomyScrollDistance(id);
+        }
+        
         if(isOnSmallWindow){
-            const tempLabel = $(`#${id}_label`);
-            const tempContainer = $(`#anatomy_label_list`);
-            const OFFSET_FACTOR = 30;
-            const scrollDistance = 
-                        tempLabel[0].offsetLeft -               // if x + y = z
-                        tempContainer[0].offsetLeft -           // then z - y = x
-                        (tempContainer[0].offsetWidth/2 - OFFSET_FACTOR);  // this is a factor of centering the scrolling to the middle of the screen
-
+            const scrollDistance = getAnatomyScrollDistance(id);
             $("#anatomy_label_list").animate({
                 scrollLeft:  scrollDistance
             }, 500);
@@ -40,6 +63,7 @@ $(document).ready(function() {
 
         //assign the new marked pos to anatomyMarkedPos
         anatomyMarkedPos = labelPosition;
+        console.log(anatomyMarkedPos)
     }
 
 
@@ -66,29 +90,46 @@ $(document).ready(function() {
     })
 
 
-    // Controlling Scrolling of the anatomy region
+    // Controlling Scrolling of the anatomy region while the anatomy section is being pinned (mobile/tablet view functionality)
+    const labelListElement = $(`#anatomy_label_list`);
+    const anatomySection = $(`#anatomy_pin`);
+    const anatomySectionStart = anatomySection.offset().top;
+    const anatomySectionEnd = anatomySectionStart + 200;
+    let isScrolling = false;
 
-    // let anatomyBody = document.querySelector(".anatomy_pin_modal");
-    // console.log(anatomyBody.offsetTop);
-    // document.onscroll = () => {
-    //     anatomyBody.scrollIntoView();
-    //     // console.log(window.scrollY);
-    // }
 
-    // let element = document.querySelector(".label_list");
-    // let list = element.children;
-    // console.log(list);
-    
-    // for(let i = 0 ; i < list.length; ++i){
-    //     console.log(`${i}: ${list[i].offsetLeft - element.offsetLeft}`)
-    // }
+    var lastScrollTop = 0;
+    $(window).scroll(function(event){
+        if(lastScrollTop < anatomySectionStart || lastScrollTop > anatomySectionEnd) {
+            lastScrollTop = document.documentElement.scrollTop;
+            return;
+        }
 
-    // element.onscroll = (e) => {
-    //     e.target.scrollLeft = 148;
-    // }
+        if(!isOnSmallWindow || (scrollEventUp && scrollEventDown)) {return;}
+        if(interval) {
+            $('html, body').animate({scrollTop: lastScrollTop + 1000/labels.length}, 0);
 
-    // console.log(element.offsetLeft, element.offsetWidth, element.offsetLeft + element.offsetWidth);
+            return;
+        }
+        console.log("attempt")
+        var st = $(this).scrollTop();
+        if (st > lastScrollTop){
+            if(scrollEventDown) return;
+            interval = setInterval(()=> {
+                markTopic(anatomyMarkedPos+1);
+            }, 300);
+            scrollEventDown = true;
+        } else {
+            if(scrollEventUp) return;
+            interval = setInterval(()=> {
+                markTopic(anatomyMarkedPos-1);
+            }, 300);
+            scrollEventUp = true;
+        }
 
+        
+        lastScrollTop = st;
+    });
 
     // Pinning the anatomy section until it's fully scrolled through (using matchMedia to limit actions to a certain screen media setting)
     let matchMedia = gsap.matchMedia();
@@ -107,7 +148,6 @@ $(document).ready(function() {
                 trigger: "#anatomy_pin",
                 start: "top 10%",
                 end: `top -1000px`,
-                markers: true,
                 scrub: true,
                 pin: true,
                 // toggleClass: "red",
@@ -119,18 +159,149 @@ $(document).ready(function() {
     // GENERAL ANIMATIONS
     gsap.to("#set1shape1", {
         // duration: 0.5,
-        y: -500,
+        y: -1000,
         // scrollTrigger: "#filler1",
         scrollTrigger: {
             trigger: "#filler1",
             start: "bottom 95%",
-            end: "bottom 60%",
+            end: "bottom 10%",
             // markers: true,
             scrub: 1,
             // toggleActions: "play pause reverse reset",
         },
         ease: 'power1.inOut'
       });
+    gsap.to("#set1shape2", {
+        // duration: 0.5,
+        y: -800,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            // markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+    gsap.to("#set1shape3", {
+        // duration: 0.5,
+        y: -500,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+    gsap.to("#set1shape4", {
+        // duration: 0.5,
+        y: -300,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+    gsap.to("#set1shape5", {
+        // duration: 0.5,
+        y: -1500,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+
+    /////////////////////////////////////////////////////////
+
+    gsap.to("#set2shape1", {
+        // duration: 0.5,
+        y: -1000,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler2",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            // markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+      gsap.to("#set2shape2", {
+        // duration: 0.5,
+        y: -800,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            // markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+    gsap.to("#set2shape3", {
+        // duration: 0.5,
+        y: -500,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+    gsap.to("#set2shape4", {
+        // duration: 0.5,
+        y: -1000,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+    gsap.to("#set2shape5", {
+        // duration: 0.5,
+        y: -1500,
+        // scrollTrigger: "#filler1",
+        scrollTrigger: {
+            trigger: "#filler1",
+            start: "bottom 95%",
+            end: "bottom 10%",
+            markers: true,
+            scrub: 1,
+            // toggleActions: "play pause reverse reset",
+        },
+        ease: 'power1.inOut'
+      });
+
+
 
     ///////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -191,5 +362,4 @@ $(document).ready(function() {
         //Time to make the labels clickable (action: marks everything related to the label's topic)
         $(`#${labelId}2_label`).click(() => {markTopic(currentIndex)});
     })
-    
 });

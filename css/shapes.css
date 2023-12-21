@@ -1,0 +1,63 @@
+.background_triangle{
+    position: absolute;
+    z-index: -1;
+}
+
+#set1shape1{
+    top: 100vh;
+    left: 50px;
+}
+#set1shape2{
+    top: 110vh;
+    left: 50px;
+}
+#set1shape3{
+    top: 120vh;
+    left: -20px;
+}
+#set1shape4{
+    top: 135vh;
+    left: 330px;
+}
+#set1shape5{
+    top: 135vh;
+    left: 0px;
+}
+
+#set2shape1{
+    top: 200vh;
+    right: 0px;
+}
+#set2shape2{
+    top: 210vh;
+    right: 0px;
+}
+#set2shape3{
+    top: 220vh;
+    right: 50px;
+}
+#set2shape4{
+    top: 235vh;
+    right: 330px;
+}
+#set2shape5{
+    top: 235vh;
+    right: 0px;
+}
+
+.anatomy_pin{
+    margin: 100px auto;
+    /* border: 3px solid red; */
+    padding-left: 10%;
+    width: 75vw;
+    height: 80vh;
+    background-color: transparent;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    overflow: hidden;
+    z-index: 10;
+}

@@ -48,37 +48,6 @@ body{
     width: 100vw;
 }
 
-.background_triangle{
-    position: absolute;
-    z-index: -1;
-}
-
-#set1shape1{
-    top: 5%;
-    left: 50px;
-}
-#set1shape2{
-    top: 7%;
-    left: 50px;
-}
-
-.anatomy_pin{
-    margin: 100px auto;
-    /* border: 3px solid red; */
-    padding-left: 10%;
-    width: 75vw;
-    height: 80vh;
-    background-color: transparent;
-    border-radius: 10px;
-
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    overflow: hidden;
-    z-index: 10;
-}
-
 .anatomy_model{
     width: 200px;
     height: 500px;
