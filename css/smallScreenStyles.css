@@ -1,9 +1,8 @@
 
 .anatomy_pin_mobile{
     margin: 100px auto;
-    border: 3px solid red;
 
-    width: 70vw;
+    width: 95vw;
     max-width: 700px;
     height: 70vh;
     background-color: white;
@@ -24,12 +23,8 @@
     z-index: 10;
 }
 
-.anatomy_pin_mobile>.anatomy_model{
-    width: 40%;
-    max-width: 400px;
-    height: 80%;
-    position: relative;
-    /* background-color:peru; */
+.anatomy_pin_mobile>.label_list>.carousel{
+    display: flex;
 }
 
 .anatomy_pin_mobile>.anatomy_model>img{
@@ -51,6 +46,7 @@
     
     border-top: 1px solid black;
 }
+
 
 .anatomy_pin_mobile>.label_list>.label{
     padding-left: 0px;

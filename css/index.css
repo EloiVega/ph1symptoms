@@ -65,34 +65,33 @@ body{
 .anatomy_pin{
     margin: 100px auto;
     /* border: 3px solid red; */
-
+    padding-left: 10%;
     width: 75vw;
     height: 80vh;
-    background-color: white;
+    background-color: transparent;
     border-radius: 10px;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 
     overflow: hidden;
     z-index: 10;
 }
 
-.anatomy_pin>.anatomy_model{
-    width: 30%;
-    max-width: 300px;
-    height: 100%;
+.anatomy_model{
+    width: 200px;
+    height: 500px;
 
     position: relative;
 }
 
-.anatomy_pin>.anatomy_model>img{
+.anatomy_model>img{
     width: 100%;
-    height: 95%;
+    height: 100%;
 }
 
-.anatomy_model .mark{
+.mark{
     background-color: var(--blue);
     position: absolute;
     top: 10%;
@@ -100,14 +99,14 @@ body{
 
     z-index: 10;
 
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
 }
-.anatomy_model .marked{
-    transform: translate(-10%, -10%);
-    width: 50px;
-    height: 50px;
+.marked{
+    transform: translate(-15%, -15%);
+    width: 40px;
+    height: 40px;
     background-color: var(--red);
     position: absolute;
     
@@ -117,11 +116,10 @@ body{
     transition: scale 0.2s ease-in-out;
 }
 
-.anatomy_model .marked::before{
+.marked::before{
     content: '';
-    z-index: -1;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     top: 5px;
     left: 5px;
     position: absolute;
@@ -131,14 +129,13 @@ body{
 
     animation: pulsate 0.5s linear infinite alternate;
 }
-.anatomy_model .marked::after{
+.marked::after{
     content: '';
-    z-index: 1;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     position: absolute;
-    top: 7px;
-    left: 7px;
+    top: 7.5px;
+    left: 7.5px;
     border-radius: 50%;
     background-color: var(--red);
 }
@@ -170,6 +167,9 @@ body{
     color: var(--blue);
     font-family: sans-serif;
     font-weight: bold;
+}
+.label_list>.carousel{
+    display: none;
 }
 
 .anatomy_pin>.label_list>.marked_label{
