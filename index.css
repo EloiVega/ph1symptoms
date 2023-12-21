@@ -161,6 +161,9 @@ body{
     display:flex;
     align-items: center;
 
+    user-select: none;
+    cursor: pointer;
+
     color: var(--blue);
     font-family: sans-serif;
     font-weight: bold;

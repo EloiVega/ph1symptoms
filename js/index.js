@@ -1,4 +1,4 @@
-$(document).ready(function() {		
+$(document).ready(function() {	
     const config = {
         view: document.querySelector('.app'),
         preload: true,

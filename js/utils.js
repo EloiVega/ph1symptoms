@@ -1,0 +1,1 @@
+const removeWhiteSpaces = (str) => str.replace(/\s/g, "");

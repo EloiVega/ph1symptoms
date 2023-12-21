@@ -1,12 +1,98 @@
+const labels = [
+    {
+        label: "skin",
+        xPosition: 79,
+        yPosition: 42,
+    },
+    {
+        label: "bones",
+        xPosition: 43,
+        yPosition: 85,
+    },
+    {
+        label: "joints",
+        xPosition: 55,
+        yPosition: 72,
+    },
+    {
+        label: "perephiral nerves",
+        xPosition: 42,
+        yPosition: 40,
+    },
+    {
+        label: "teeth",
+        xPosition: 48.5,
+        yPosition: 17,
+    },
+    {
+        label: "heart",
+        xPosition: 55,
+        yPosition: 30,
+    },
+    {
+        label: "blood vessels",
+        xPosition: 20,
+        yPosition: 40,
+    },
+    {
+        label: "bone marrow",
+        xPosition: 28,
+        yPosition: 32,
+    },
+    {
+        label: "muscles",
+        xPosition: 42,
+        yPosition: 28.5,
+    },
+    {
+        label: "retina",
+        xPosition: 46,
+        yPosition: 11.5,
+    },
+    {
+        label: "thyroid",
+        xPosition: 48,
+        yPosition: 23,
+    },
+    {
+        label: "kidneys",
+        xPosition: 55,
+        yPosition: 40,
+    },
+  ]
+
 $(document).ready(function() {	
-    gsap.registerPlugin(ScrollTrigger);	
+    gsap.registerPlugin(ScrollTrigger);
 
     const anatomy_pin = document.querySelector("#anatomy_pin");
     const anatomy_label_list = document.querySelector("#anatomy_label_list");
     const anatomy_labels = anatomy_label_list.children;
+    let anatomyMarkedPos = 0; //Initiates Marked Labels and Markers
     
     let isOnSmallWindow = false; //Controls functionalities to only be used when needed
     const SMALL_WINDOW_MAX_WIDTH = 768;
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    /* --------- LOGISTICS --------- */
+
+    const markTopic = (labelPosition) => {
+        console.log("isClicking") //Debugging
+        // - COMPLETE THIS FUNCTION -
+        let id = removeWhiteSpaces(labels[anatomyMarkedPos].label); //marked positions' id
+        
+        //Unmark the previous marked position
+        $(`#${id}_label`).removeClass('marked_label');
+        
+        id = removeWhiteSpaces(labels[labelPosition].label); //new positions' id
+        //Mark the new position
+        $(`#${id}_label`).addClass('marked_label');
+
+        //assign the new marked pos to anatomyMarkedPos
+        anatomyMarkedPos = labelPosition;
+    }
+
     window.addEventListener("resize", () => {
         if(!isOnSmallWindow && window.innerWidth < SMALL_WINDOW_MAX_WIDTH){
             //Set all configurations to mobile mode
@@ -53,6 +139,12 @@ $(document).ready(function() {
 
     // Pinning the anatomy section until it's fully scrolled through
     let matchMedia = gsap.matchMedia();
+    
+    
+    ///////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    /* --------- ANIMATIONS --------- */
 
     // ANIMATIONS ON MOBILE DEVICES AND TABLETS
     matchMedia.add("(max-width: 768px)", () => {
@@ -86,4 +178,23 @@ $(document).ready(function() {
         },
         ease: 'power1.inOut'
       });
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    /* --------- RENDERING --------- */
+
+    //Rendering the labels' list
+    labels.forEach((label, currentIndex) => {
+        const labelId = removeWhiteSpaces(label.label);
+        $('#anatomy_label_list').append(`
+            <div id = "${labelId}_label" class = "label ${currentIndex == anatomyMarkedPos? "marked_label": ""}">
+                <h2>${label.label}</h2>
+            </div>
+        `)
+
+        //Time to make the labels clickable (action: marks everything related to the label's topic)
+        $(`#${labelId}_label`).click(() => {markTopic(currentIndex)});
+    })
+    
 });
