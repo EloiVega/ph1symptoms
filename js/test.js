@@ -14,13 +14,15 @@ $(document).ready(function() {
 
             $(anatomy_pin).removeClass("anatomy_pin");      //Remove desktop styles from the anatomy pin
             $(anatomy_pin).addClass("anatomy_pin_mobile");  //Apply mobile style to the anatomy pin
-
+            // anatomy_pin.id = "anatomy_pin_mobile";
+            
         } else if (isOnSmallWindow && window.innerWidth >= SMALL_WINDOW_MAX_WIDTH) {
             //Set all configurations to desktop mode
             isOnSmallWindow = false;
             
             $(anatomy_pin).removeClass("anatomy_pin_mobile");   //Remove mobile style from the anatomy pin
             $(anatomy_pin).addClass("anatomy_pin");             //Apply desktop styles to the anatomy pin    
+            // anatomy_pin.id = "anatomy_pin";
         }
 
     })
@@ -50,20 +52,26 @@ $(document).ready(function() {
     // console.log(element.offsetLeft, element.offsetWidth, element.offsetLeft + element.offsetWidth);
 
     // Pinning the anatomy section until it's fully scrolled through
-    gsap.to("#filler3", {
-        scrollTrigger: {
-            trigger: "#anatomy_pin",
-            start: "top 10%",
-            end: `top -${anatomy_label_list.offsetWidth + 100}px`,
-            markers: true,
-            scrub: true,
-            pin: true,
-            // toggleClass: "red",
-        },
-        scrollLeft: () => {
-            return `${document.querySelector(".label_list").scrollLeft + 20}`}
-    })
+    let matchMedia = gsap.matchMedia();
 
+    // ANIMATIONS ON MOBILE DEVICES AND TABLETS
+    matchMedia.add("(max-width: 768px)", () => {
+
+        gsap.to("#filler3", {
+            scrollTrigger: {
+                trigger: "#anatomy_pin",
+                start: "top 10%",
+                end: `top -${anatomy_label_list.offsetWidth + 100}px`,
+                markers: true,
+                scrub: true,
+                pin: true,
+                // toggleClass: "red",
+            },
+        })
+
+    })
+        
+    // GENERAL ANIMATIONS
     gsap.to("#set1shape1", {
         // duration: 0.5,
         y: -500,
