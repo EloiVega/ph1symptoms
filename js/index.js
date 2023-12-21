@@ -249,7 +249,7 @@ $(document).ready(function() {
         y: -800,
         // scrollTrigger: "#filler1",
         scrollTrigger: {
-            trigger: "#filler1",
+            trigger: "#filler2",
             start: "bottom 95%",
             end: "bottom 10%",
             // markers: true,
@@ -263,7 +263,7 @@ $(document).ready(function() {
         y: -500,
         // scrollTrigger: "#filler1",
         scrollTrigger: {
-            trigger: "#filler1",
+            trigger: "#filler2",
             start: "bottom 95%",
             end: "bottom 10%",
             markers: true,
@@ -277,7 +277,7 @@ $(document).ready(function() {
         y: -1000,
         // scrollTrigger: "#filler1",
         scrollTrigger: {
-            trigger: "#filler1",
+            trigger: "#filler2",
             start: "bottom 95%",
             end: "bottom 10%",
             markers: true,
@@ -291,7 +291,7 @@ $(document).ready(function() {
         y: -1500,
         // scrollTrigger: "#filler1",
         scrollTrigger: {
-            trigger: "#filler1",
+            trigger: "#filler2",
             start: "bottom 95%",
             end: "bottom 10%",
             markers: true,
