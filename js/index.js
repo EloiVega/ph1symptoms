@@ -15,7 +15,6 @@ $(document).ready(function() {
     let scrollEventUp = false;
     let scrollEventDown = false;
 
-    console.log(window.innerWidth, SMALL_WINDOW_MAX_WIDTH, isOnSmallWindow)
     const shiftScreenSetting = (setting) => {   //Setting can either be "small" or "large"
         if(setting === "small"){
             $(anatomy_pin).removeClass("anatomy_pin");      //Remove desktop styles from the anatomy pin
@@ -76,7 +75,6 @@ $(document).ready(function() {
 
         //assign the new marked pos to anatomyMarkedPos
         anatomyMarkedPos = labelPosition;
-        console.log(anatomyMarkedPos)
     }
 
 
@@ -118,7 +116,6 @@ $(document).ready(function() {
 
             return;
         }
-        console.log("attempt")
         var st = $(this).scrollTop();
         if (st > lastScrollTop){
             if(scrollEventDown) return;
