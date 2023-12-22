@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 
     /* --------- GLOBAL VARIABLES & INITIALLIZATION FUNCTIONS --------- */
-    
+
     const SMALL_WINDOW_MAX_WIDTH = 768;
 
     const anatomy_pin = document.querySelector("#anatomy_pin");
@@ -14,6 +14,18 @@ $(document).ready(function() {
     let interval = false;
     let scrollEventUp = false;
     let scrollEventDown = false;
+
+    console.log(window.innerWidth, SMALL_WINDOW_MAX_WIDTH, isOnSmallWindow)
+    const shiftScreenSetting = (setting) => {   //Setting can either be "small" or "large"
+        if(setting === "small"){
+            $(anatomy_pin).removeClass("anatomy_pin");      //Remove desktop styles from the anatomy pin
+            $(anatomy_pin).addClass("anatomy_pin_mobile");  //Apply mobile style to the anatomy pin
+        } else if (setting === "large"){
+            $(anatomy_pin).removeClass("anatomy_pin_mobile");  //Remove mobile style to the anatomy pin
+            $(anatomy_pin).addClass("anatomy_pin");      //Apply desktop styles from the anatomy pin
+        }
+    }
+    if(isOnSmallWindow) shiftScreenSetting("small");
 
     const getAnatomyScrollDistance = (id) => {
         const tempLabel = $(`#${id}_label`);
@@ -74,18 +86,12 @@ $(document).ready(function() {
         if(!isOnSmallWindow && window.innerWidth < SMALL_WINDOW_MAX_WIDTH){
             //Set all configurations to mobile mode
             isOnSmallWindow = true;
-
-            $(anatomy_pin).removeClass("anatomy_pin");      //Remove desktop styles from the anatomy pin
-            $(anatomy_pin).addClass("anatomy_pin_mobile");  //Apply mobile style to the anatomy pin
-            // anatomy_pin.id = "anatomy_pin_mobile";
+            shiftScreenSetting("small");
             
         } else if (isOnSmallWindow && window.innerWidth >= SMALL_WINDOW_MAX_WIDTH) {
             //Set all configurations to desktop mode
             isOnSmallWindow = false;
-            
-            $(anatomy_pin).removeClass("anatomy_pin_mobile");   //Remove mobile style from the anatomy pin
-            $(anatomy_pin).addClass("anatomy_pin");             //Apply desktop styles to the anatomy pin    
-            // anatomy_pin.id = "anatomy_pin";
+            shiftScreenSetting("large");
         }
 
     })
