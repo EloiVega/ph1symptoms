@@ -3,16 +3,17 @@ $(document).ready(function() {
 
 
     /* --------- GLOBAL VARIABLES & INITIALLIZATION FUNCTIONS --------- */
+    
+    const SMALL_WINDOW_MAX_WIDTH = 768;
 
     const anatomy_pin = document.querySelector("#anatomy_pin");
     let anatomyMarkedPos = 0; //Initiates Marked Labels and Markers
     let anatomyScrollStart = 0; //Initiallized bellow (quick search: if(anatomyScrollStart == 0)) to jump to the initiallization
     let isAnatomyPinned = false; //Controls functionalities of the label_list scroll when the anatomy section is pinned
-    let isOnSmallWindow = false; //Controls functionalities to only be used when needed
+    let isOnSmallWindow = window.innerWidth < SMALL_WINDOW_MAX_WIDTH? true: false; //Controls functionalities to only be used when needed
     let interval = false;
     let scrollEventUp = false;
     let scrollEventDown = false;
-    const SMALL_WINDOW_MAX_WIDTH = 768;
 
     const getAnatomyScrollDistance = (id) => {
         const tempLabel = $(`#${id}_label`);

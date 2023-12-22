@@ -25,6 +25,7 @@
 
 .anatomy_pin_mobile>.label_list>.carousel{
     display: flex;
+    color: gray !important
 }
 
 .anatomy_pin_mobile>.anatomy_model>img{
